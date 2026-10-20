@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skullcer – Aksesoris gothic & punk handmade</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="logo blk" href="#top">Skullcer</a>
+  <nav><a class="l" href="#koleksi">Koleksi</a><a class="l" href="#cara-order">Cara order</a>
+  <button class="btn" id="cartBtn" aria-label="Buka keranjang">Keranjang (<span id="cnt">0</span>)</button></nav>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <h1 class="blk">Skullcer</h1>
+    <p>Aksesoris gothic & punk buatan tangan. Choker, cincin, rantai, dan patch untuk kamu yang mau tampil kayak yang punya toko.</p>
+    <div class="cta"><a class="btn" href="#koleksi" style="text-decoration:none">Lihat koleksi</a><a class="btn alt" href="#cara-order" style="text-decoration:none">Cara order</a></div>
+  </div>
+  <div class="art" aria-hidden="true">
+    <span class="sticker s1">Handmade</span>
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40Q60 100 110 40"/><path d="M20 55l5 12 5-10M38 68l5 12 5-10M55 76l5 12 5-10M72 70l5 12 5-10M90 58l5 12 5-10"/></svg>
+    <span class="sticker s2">Stok terbatas</span>
+  </div>
+</div>
+
+<div class="marq" aria-hidden="true"><div class="blk" id="mq"></div></div>
+
+<section id="koleksi">
+  <h2 class="blk">Koleksi</h2>
+  <p class="sub">Semua dibuat satu per satu di workshop kecil kami. Kalau stok habis, harus tunggu batch berikutnya.</p>
+  <div class="chips" id="chips" role="group" aria-label="Filter kategori"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="cara-order">
+  <h2 class="blk">Cara order</h2>
+  <p class="sub">Tanpa akun, tanpa ribet. Pesanan diselesaikan lewat WhatsApp.</p>
+  <ol class="steps">
+    <li><b>Pilih barang</b>Masukkan ke keranjang, atur jumlahnya.</li>
+    <li><b>Kirim lewat WhatsApp</b>Daftar pesananmu otomatis terisi di chat.</li>
+    <li><b>Bayar dan tunggu paket</b>Kami konfirmasi ongkir, kamu transfer, barang dikirim 1–3 hari.</li>
+  </ol>
+</section>
+</main>
+
+<footer><span class="blk">Skullcer</span>Aksesoris hideung, buatan UMKM lokal. © 2026</footer>
+
+<div id="scrim"></div>
+<aside id="drawer" aria-label="Keranjang" aria-hidden="true">
+  <header><b class="blk" style="font-size:1.8rem">Keranjang</b><button class="btn alt" id="closeBtn">Tutup</button></header>
+  <div id="items"></div>
+  <div class="tot"><span>Total</span><span id="total">Rp0</span></div>
+  <button class="btn" id="wa">Pesan lewat WhatsApp</button>
+</aside>
+
+<script>
+const WA_NUMBER="6285811105310";
+const P=[
+{id:1,n:"Choker paku spike",c:"Choker",p:85000,t:"choker",b:"var(--blood)",f:"var(--bone)",tag:"Terlaris",img:"foto/choker-spike.jpg"},
+{id:2,n:"Cincin tengkorak",c:"Cincin",p:65000,t:"ring",b:"var(--lilac)",f:"#1B1416",img:"foto/cincin-tengkorak.jpg"},
+{id:3,n:"Anting peniti rantai",c:"Anting",p:45000,t:"pin",b:"var(--card)",f:"var(--fg)",tag:"Baru",img:"foto/anting-peniti.jpg"},
+{id:4,n:"Kalung salib terbalik",c:"Kalung",p:95000,t:"cross",b:"var(--fg)",f:"var(--bg)",img:"foto/kalung-salib.jpg"},
+{id:5,n:"Gelang studs kulit",c:"Gelang",p:75000,t:"cuff",b:"var(--blood)",f:"var(--bone)",img:"foto/gelang-studs.jpg"},
+{id:6,n:"Sabuk studs piramid",c:"Sabuk",p:150000,t:"belt",b:"var(--lilac)",f:"#1B1416",img:"foto/sabuk-studs.jpg"},
+{id:7,n:"Patch bordir X",c:"Patch",p:35000,t:"patch",b:"var(--card)",f:"var(--fg)",img:"foto/patch-x.jpg"},
+{id:8,n:"Kalung rantai gembok",c:"Kalung",p:110000,t:"lock",b:"var(--fg)",f:"var(--bg)",tag:"Stok tipis",img:"foto/kalung-gembok.jpg"}];
+const I={
+choker:'<path d="M10 40Q60 100 110 40"/><path d="M20 55l5 12 5-10M38 68l5 12 5-10M55 76l5 12 5-10M72 70l5 12 5-10M90 58l5 12 5-10"/>',
+ring:'<circle cx="60" cy="80" r="26"/><circle cx="60" cy="34" r="16"/><circle cx="54" cy="32" r="3"/><circle cx="66" cy="32" r="3"/><path d="M54 46v8M60 46v8M66 46v8"/>',
+pin:'<rect x="22" y="22" width="76" height="20" rx="10"/><circle cx="34" cy="32" r="4"/><path d="M60 42v14M60 62v14M60 82v14"/>',
+cross:'<circle cx="60" cy="12" r="6"/><path d="M60 18v92M34 78h52"/>',
+cuff:'<ellipse cx="60" cy="60" rx="46" ry="22"/><circle cx="24" cy="68" r="4"/><circle cx="42" cy="78" r="4"/><circle cx="60" cy="82" r="4"/><circle cx="78" cy="78" r="4"/><circle cx="96" cy="68" r="4"/>',
+belt:'<rect x="8" y="46" width="104" height="28" rx="3"/><path d="M24 54l7 12 7-12zM53 54l7 12 7-12zM82 54l7 12 7-12z"/>',
+patch:'<rect x="20" y="20" width="80" height="80" rx="10"/><path d="M38 38l44 44M82 38L38 82"/>',
+lock:'<circle cx="26" cy="26" r="10"/><circle cx="46" cy="42" r="10"/><rect x="60" y="62" width="44" height="38" rx="5"/><path d="M69 62V52a13 13 0 0 1 26 0v10"/>'};
+const svg=t=>`<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[t]}</svg>`;
+const rp=n=>"Rp"+n.toLocaleString("id-ID");
+const $=s=>document.querySelector(s);
+const cart={};let cat="Semua";
+
+$("#mq").innerHTML=(("<span>Gothic</span><span>✦</span><span>Punk</span><span>✦</span><span>Handmade</span><span>✦</span><span>Dikirim ke seluruh Indonesia</span><span>✦</span>").repeat(8));
+
+const cats=["Semua",...new Set(P.map(x=>x.c))];
+function chips(){$("#chips").innerHTML=cats.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join("")}
+function grid(){
+  $("#grid").innerHTML=P.filter(x=>cat==="Semua"||x.c===cat).map(x=>`
+  <article class="card"><div class="thumb" style="background:${x.b};color:${x.f}">${x.tag?`<span class="tag">${x.tag}</span>`:""}${x.img?`<img src="${x.img}" alt="${x.n}" loading="lazy">`:svg(x.t)}</div>
+  <div class="info"><h3>${x.n}</h3><small>${x.c}</small><div class="row"><span class="price">${rp(x.p)}</span><button class="btn" data-add="${x.id}">Tambah</button></div></div></article>`).join("");
+}
+function draw(){
+  const ids=Object.keys(cart);let tot=0,n=0;
+  $("#items").innerHTML=ids.length?ids.map(id=>{const x=P.find(p=>p.id==id),q=cart[id];tot+=x.p*q;n+=q;
+    return `<div class="it"><b>${x.n}</b><span>${rp(x.p*q)}</span><span class="qty"><button data-d="-1" data-id="${id}" aria-label="Kurangi">−</button>${q}<button data-d="1" data-id="${id}" aria-label="Tambah">+</button></span></div>`}).join("")
+    :'<p class="empty">Keranjang masih kosong. Pilih aksesorismu dulu.</p>';
+  $("#total").textContent=rp(tot);$("#cnt").textContent=n;$("#wa").disabled=!n;$("#wa").style.opacity=n?1:.5;
+}
+function open(o){document.body.classList.toggle("open",o);$("#drawer").setAttribute("aria-hidden",!o)}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.dataset.c){cat=t.dataset.c;chips();grid()}
+  if(t.dataset.add){cart[t.dataset.add]=(cart[t.dataset.add]||0)+1;draw();const b=$("#cartBtn");b.style.transform="rotate(-4deg) scale(1.08)";setTimeout(()=>b.style.transform="",180)}
+  if(t.dataset.d){const id=t.dataset.id;cart[id]+=+t.dataset.d;if(cart[id]<=0)delete cart[id];draw()}
+});
+$("#cartBtn").onclick=()=>open(true);$("#closeBtn").onclick=$("#scrim").onclick=()=>open(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")open(false)});
+$("#wa").onclick=()=>{
+  const ids=Object.keys(cart);if(!ids.length)return;let tot=0;
+  const lines=ids.map(id=>{const x=P.find(p=>p.id==id);tot+=x.p*cart[id];return `- ${x.n} x${cart[id]} (${rp(x.p*cart[id])})`});
+  const msg=`Halo Skullcer, saya mau pesan:\n${lines.join("\n")}\nTotal: ${rp(tot)}\n\nMohon info ongkir dan cara bayarnya ya.`;
+  window.open(`https://wa.me/${6285811105310}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+};
+chips();grid();draw();
+</script>
+</body>
+</html>
